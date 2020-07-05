@@ -4,6 +4,7 @@ import 'package:airplane/pages/calenderPage.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
+
 class SelectTicket extends StatefulWidget {
   SelectTicket({Key key}) : super(key: key);
 
@@ -12,8 +13,255 @@ class SelectTicket extends StatefulWidget {
 }
 
 class _SelectTicketState extends State<SelectTicket> {
+
+  static var currDt = DateTime.now();
+  static var l = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+  static var date = currDt.day;
+  var year = currDt.year;
+  var dateb = date - 1;
+  var datef = date+1;
+  static var day = currDt.weekday;
+  var dayOfWeek=weekdayinitializer();
+  var dayOfWeekb=weekdayinitializerb();
+  var dayOfWeekf=weekdayinitializerf();
+  var month = currDt.month;
+  var count=0;
+
+  static String weekdayinitializer(){
+    for(int i=1;i<8;++i){
+      if(day==i){
+        return l[i-1];
+      }
+    }
+  }
+
+  static String weekdayinitializerb(){
+    for(int i=0;i<7;++i){
+      if(weekdayinitializer()==l[i]){
+        if(weekdayinitializer()==l[0]){
+          return l[6];
+        }
+        else{
+          return l[i-1];
+        }
+      }
+    }
+  }
+
+  static String weekdayinitializerf(){
+    for(int i=0;i<7;++i){
+      if(weekdayinitializer()==l[i]){
+        if(weekdayinitializer()==l[6]){
+          return l[0];
+        }
+        else{
+          return l[i+1];
+        }
+      }
+    }
+  }
+
+  void weekDay(){
+    print(dayOfWeek);
+      if(day==8){
+        day=1;}
+      dayOfWeek=l[day-1];
+    if(dayOfWeek=="SUN"){
+      dayOfWeekb="SAT";
+      dayOfWeekf="MON";
+    }
+    else if(dayOfWeek=="MON"){
+      dayOfWeekb="SUN";
+      dayOfWeekf="TUE";
+    }
+    else if(dayOfWeek=="TUE"){
+      dayOfWeekb="MON";
+      dayOfWeekf="WED";
+    }
+    else if(dayOfWeek=="WED"){
+      dayOfWeekb="TUE";
+      dayOfWeekf="THU";
+    }
+    else if(dayOfWeek=="THU"){
+      dayOfWeekb="WED";
+      dayOfWeekf="FRI";
+    }
+    else if(dayOfWeek=="FRI"){
+      dayOfWeekb="THU";
+      dayOfWeekf="SAT";
+    }
+    else if(dayOfWeek=="SAT"){
+      dayOfWeekb="FRI";
+      dayOfWeekf="SUN";
+    }
+  }
+
+  void rotator(){
+    print(day);
+    print(month);
+    print("date:$date dateb:$dateb datef:$datef");
+
+    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+      if(date==32){
+        date=1;
+        ++count;
+      }
+      if(dateb==32){
+        dateb=1;
+        ++count;
+      }
+      if(datef==32){
+        datef=1;
+        ++count;
+      }
+      if(count==3){
+        ++month;
+        count=0;
+      }
+      if(month==8){
+        if(date==0){
+          date=31;
+          ++count;
+        }
+        if(dateb==0){
+          dateb=31;
+          ++count;
+          //--month;
+        }
+        if(datef==0){
+          datef=31;
+          ++count;
+        }
+      }
+      else if(month==3){
+        if(year%4==0){
+          if(date==0){
+            date=29;
+            ++count;
+          }
+          if(dateb==0){
+            dateb=29;
+            ++count;
+            //--month;
+          }
+          if(datef==0){
+            datef=29;
+            ++count;
+          }
+        }
+        else{
+          if(date==0){
+            date=28;
+            ++count;
+          }
+          if(dateb==0){
+            dateb=28;
+            ++count;
+            //--month;
+          }
+          if(datef==0){
+            datef=28;
+            ++count;
+          }
+        }
+      }
+      else{
+        if(date==0){
+          date=30;
+          ++count;
+        }
+        if(dateb==0){
+          dateb=30;
+          ++count;
+          //--month;
+        }
+        if(datef==0){
+          datef=30;
+          ++count;
+        }
+      }
+      if(count==3){
+        --month;
+        count=0;
+      }
+    }
+    if(month==2 || month ==4 || month ==6 || month ==9 || month ==11){
+      if(month==2){
+        if(year%4==0){
+          if(date==30){
+            date=1;
+            ++count;
+          }
+          if(dateb==30){
+            dateb=1;
+            ++count;
+          }
+          if(datef==30){
+            datef=1;
+            ++count;
+            //++month;
+          }
+        }
+        else{
+          if(date==29){
+            date=1;
+            ++count;
+          }
+          if(dateb==29){
+            dateb=1;
+            ++count;
+          }
+          if(datef==29){
+            datef=1;
+            ++count;
+            //++month;
+          }
+        }
+      }
+      else{
+        if(date==31){
+          date=1;
+          ++count;
+        }
+        if(dateb==31){
+          dateb=1;
+          ++count;
+        }
+        if(datef==31){
+          datef=1;
+          ++count;
+          //++month;
+        }
+      }
+      if(count==3){
+        ++month;
+        count=0;
+      }
+      if(date==0){
+        date=31;
+        ++count;
+      }
+      if(dateb==0){
+        dateb=31;
+        ++count;
+        //--month;
+      }
+      if(datef==0){
+        datef=31;
+        ++count;
+      }
+      if(count==3)
+        {
+          --month;
+          count=0;
+        }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    weekDay();
+
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: BlueColor,
@@ -104,17 +352,28 @@ class _SelectTicketState extends State<SelectTicket> {
                             color: BlueColor,
                           ),
                           tooltip: 'Air it',
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              day--;
+                              --date;
+                              --datef;
+                              --dateb;
+                              if(day==0){
+                                day=7;
+                              }
+                              rotator();
+                            });
+                          },
                         ),
                         Column(
                           children: <Widget>[
                             Container(
                               height: MediaQuery.of(context).size.height / 30,
                             ),
-                            Text('11',
+                            Text('$dateb',
                                 style: new TextStyle(
                                     color: BlueColor, fontSize: 30)),
-                            Text('MON', style: new TextStyle(color: BlueColor)),
+                            Text('$dayOfWeekb', style: new TextStyle(color: BlueColor)),
                           ],
                         ),
                         Container(
@@ -126,10 +385,10 @@ class _SelectTicketState extends State<SelectTicket> {
                               Container(
                                 height: MediaQuery.of(context).size.height / 30,
                               ),
-                              Text('12',
+                              Text('$date',
                                   style: new TextStyle(
                                       color: BlueColor, fontSize: 30)),
-                              Text('TUE',
+                              Text('$dayOfWeek',
                                   style: new TextStyle(color: BlueColor)),
                             ],
                           ),
@@ -139,10 +398,10 @@ class _SelectTicketState extends State<SelectTicket> {
                             Container(
                               height: MediaQuery.of(context).size.height / 30,
                             ),
-                            Text('13',
+                            Text('$datef',
                                 style: new TextStyle(
                                     color: BlueColor, fontSize: 30)),
-                            Text('WED', style: new TextStyle(color: BlueColor)),
+                            Text('$dayOfWeekf', style: new TextStyle(color: BlueColor)),
                           ],
                         ),
                         IconButton(
@@ -151,7 +410,15 @@ class _SelectTicketState extends State<SelectTicket> {
                             color: BlueColor,
                           ),
                           tooltip: 'Air it',
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              day++;
+                              date++;
+                              datef++;
+                              dateb++;
+                              rotator();
+                            });
+                          },
                         ),
                       ],
                     ),

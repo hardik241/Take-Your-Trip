@@ -5,6 +5,7 @@ import 'package:airplane/pages/selectPlane.dart';
 
 import 'package:flutter/foundation.dart';
 
+
 class DetailsPage extends StatefulWidget {
   DetailsPage({Key key}) : super(key: key);
 
@@ -15,6 +16,7 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   var _iconColor = false;
   var gen = "Mr";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
